@@ -8,7 +8,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public SlotObject Slot;
         public bool Unknown;
 
-        public override PacketType Type => PacketType.INVDROP;
+        public override PacketType Type => PacketType.INVENTORYDROP;
 
         public override void Read(PacketReader r)
         {

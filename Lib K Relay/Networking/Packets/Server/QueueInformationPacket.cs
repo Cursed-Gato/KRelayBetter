@@ -5,7 +5,7 @@
         public ushort CurrentPosition;
         public ushort MaxPosition;
 
-        public override PacketType Type => PacketType.QUEUE_INFORMATION;
+        public override PacketType Type => PacketType.QUEUE;
 
         public override void Read(PacketReader r)
         {

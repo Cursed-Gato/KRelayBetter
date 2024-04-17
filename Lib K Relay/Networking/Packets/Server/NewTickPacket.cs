@@ -5,7 +5,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
     public class NewTickPacket : Packet
     {
         public ushort ServerLastRttms;
-        public int ServerRealTimeMs;
+        public uint ServerRealTimeMs;
         public Status[] Statuses;
         public int TickId;
         public int TickTime;
@@ -16,11 +16,12 @@ namespace Lib_K_Relay.Networking.Packets.Server
         {
             TickId = r.ReadInt32();
             TickTime = r.ReadInt32();
-            ServerRealTimeMs = r.ReadInt32();
+            ServerRealTimeMs = r.ReadUInt32();
             ServerLastRttms = r.ReadUInt16();
 
             Statuses = new Status[r.ReadInt16()];
-            for (var i = 0; i < Statuses.Length; i++) Statuses[i] = (Status)new Status().Read(r);
+            for (var i = 0; i < Statuses.Length; i++) 
+                Statuses[i] = (Status)new Status().Read(r);
         }
 
         public override void Write(PacketWriter w)
@@ -31,7 +32,8 @@ namespace Lib_K_Relay.Networking.Packets.Server
             w.Write(ServerLastRttms);
 
             w.Write((short)Statuses.Length);
-            foreach (var s in Statuses) s.Write(w);
+            foreach (var s in Statuses)
+                s.Write(w);
         }
     }
 }

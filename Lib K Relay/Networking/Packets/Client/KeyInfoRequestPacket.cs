@@ -4,7 +4,7 @@
     {
         public int ItemType;
 
-        public override PacketType Type => PacketType.KEY_INFO_REQUEST;
+        public override PacketType Type => PacketType.KEYINFOREQUEST;
 
         public override void Read(PacketReader r)
         {

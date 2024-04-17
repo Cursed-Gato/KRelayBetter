@@ -4,22 +4,25 @@ namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class ForgeUnlockedBlueprintsPacket : Packet
     {
+        public byte SeasonalForge;
         public int[] UnlockedItems;
 
-        public override PacketType Type => PacketType.FORGE_UNLOCKED_BLUEPRINTS;
+        public override PacketType Type => PacketType.FORGEUNLOCKEDBLUEPRINTS;
 
         public override void Read(PacketReader r)
         {
-            UnlockedItems = new int[r.ReadByte()];
+            SeasonalForge = r.ReadByte();
+            UnlockedItems = new int[r.ReadCompressedInt()];
             for (var i = 0; i < UnlockedItems.Length; i++)
-                UnlockedItems[i] = CompressedInt.Read(r);
+                UnlockedItems[i] = r.ReadCompressedInt();
         }
 
         public override void Write(PacketWriter w)
         {
             w.Write((byte)UnlockedItems.Length);
+            w.Write(SeasonalForge);
             foreach (var item in UnlockedItems)
-                CompressedInt.Write(w, item);
+                w.WriteCompressedInt(item);
         }
     }
 }

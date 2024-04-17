@@ -49,7 +49,7 @@ namespace Glow
             for (var i = 0; i < update.NewObjs.Length; i++)
                 if (update.NewObjs[i].Status.ObjectId == client.ObjectId)
                     foreach (var t in update.NewObjs[i].Status.Data)
-                        if (t.Id == (int)StatsType.Stats.IsSupporter)
+                        if (t.Id == (int)StatsType.Stats.SupporterStat)
                             t.IntValue = 1;
         }
     }

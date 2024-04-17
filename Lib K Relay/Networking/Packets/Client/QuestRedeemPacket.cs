@@ -9,7 +9,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public string QuestId;
         public SlotObject[] Slots;
 
-        public override PacketType Type => PacketType.QUEST_REDEEM;
+        public override PacketType Type => PacketType.QUESTREDEEM;
 
         public override void Read(PacketReader r)
         {

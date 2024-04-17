@@ -4,7 +4,7 @@
     {
         public int ObjectId;
 
-        public override PacketType Type => PacketType.QUEUE_CANCEL;
+        public override PacketType Type => PacketType.QUEUECANCEL;
 
         public override void Read(PacketReader r)
         {

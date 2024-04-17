@@ -9,7 +9,7 @@
         public int CommandId;
         public uint PetId;
 
-        public override PacketType Type => PacketType.ACTIVE_PET_UPDATE_REQUEST;
+        public override PacketType Type => PacketType.ACTIVEPETUPDATEREQUEST;
 
         public override void Read(PacketReader r)
         {

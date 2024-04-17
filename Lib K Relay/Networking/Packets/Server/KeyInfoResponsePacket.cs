@@ -6,7 +6,7 @@
         public string Description;
         public string Name;
 
-        public override PacketType Type => PacketType.KEY_INFO_RESPONSE;
+        public override PacketType Type => PacketType.KEYINFORESPONSE;
 
         public override void Read(PacketReader r)
         {

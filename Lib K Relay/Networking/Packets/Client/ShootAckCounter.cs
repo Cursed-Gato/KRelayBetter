@@ -5,7 +5,7 @@
         public short Amount;
         public int Time;
 
-        public override PacketType Type => PacketType.SHOOTACK_COUNTER;
+        public override PacketType Type => PacketType.SHOOTACKCOUNTER;
 
         public override void Read(PacketReader r)
         {

@@ -9,7 +9,6 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public Location ItemUsePos;
         public SlotObject SlotObject;
         public int Time;
-        public bool Unknown;
         public byte UseType;
 
         public override PacketType Type => PacketType.USEITEM;
@@ -20,7 +19,6 @@ namespace Lib_K_Relay.Networking.Packets.Client
             SlotObject = (SlotObject)new SlotObject().Read(r);
             ItemUsePos = (Location)new Location().Read(r);
             UseType = r.ReadByte();
-            Unknown = r.ReadBoolean();
         }
 
         public override void Write(PacketWriter w)
@@ -29,7 +27,6 @@ namespace Lib_K_Relay.Networking.Packets.Client
             SlotObject.Write(w);
             ItemUsePos.Write(w);
             w.Write(UseType);
-            w.Write(Unknown);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class GoToQuestRoomPacket : Packet
     {
-        public override PacketType Type => PacketType.QUEST_ROOM_MSG;
+        public override PacketType Type => PacketType.GOTOQUESTROOM;
 
         public override void Read(PacketReader r)
         {

@@ -25,7 +25,7 @@ namespace Lib_K_Relay.Networking
 
         private void OnMove(Client client, MovePacket packet)
         {
-            client.PreviousTime = packet.Time;
+            client.PreviousTime = (int)packet.ServerRealTimeMSofLastNewTick;
             client.LastUpdate = Environment.TickCount;
         }
 
@@ -33,8 +33,8 @@ namespace Lib_K_Relay.Networking
         {
             client.PlayerData.Pos = new Location
             {
-                X = packet.Position.X - 0.3f * (float)Math.Cos(packet.Angle),
-                Y = packet.Position.Y - 0.3f * (float)Math.Sin(packet.Angle)
+                X = packet.ProjectilePosition.X - 0.3f * (float)Math.Cos(packet.Angle),
+                Y = packet.ProjectilePosition.Y - 0.3f * (float)Math.Sin(packet.Angle)
             };
         }
 

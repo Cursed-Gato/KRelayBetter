@@ -8,7 +8,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public SlotObject[] Results;
         public bool Success;
 
-        public override PacketType Type => PacketType.FORGE_RESULT;
+        public override PacketType Type => PacketType.FORGERESULT;
 
         public override void Read(PacketReader r)
         {

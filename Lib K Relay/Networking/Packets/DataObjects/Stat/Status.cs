@@ -10,9 +10,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
 
         public IDataObject Read(PacketReader r)
         {
-            ObjectId = CompressedInt.Read(r);
+            ObjectId = r.ReadCompressedInt();
             Position.Read(r);
-            Data = new StatData[CompressedInt.Read(r)];
+            Data = new StatData[r.ReadCompressedInt()];
 
             for (var i = 0; i < Data.Length; i++)
             {
@@ -26,9 +26,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
 
         public void Write(PacketWriter w)
         {
-            CompressedInt.Write(w, ObjectId);
+            w.WriteCompressedInt(ObjectId);
             Position.Write(w);
-            CompressedInt.Write(w, Data.Length);
+            w.WriteCompressedInt(Data.Length);
 
             foreach (var statData in Data)
                 statData.Write(w);

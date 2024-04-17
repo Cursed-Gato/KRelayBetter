@@ -65,7 +65,6 @@ namespace Lib_K_Relay
                 _localListener = new TcpListener(IPAddress.Parse("127.0.0.1"), 2050);
                 _localListener.Start();
                 _localListener.BeginAcceptTcpClient(LocalConnect, null);
-                HookHttps.Run();
                 PluginUtils.Log("Listener", "Local listener started.");
             }, "ClientListenerStart");
 
@@ -83,7 +82,6 @@ namespace Lib_K_Relay
             if (_localListener == null) return;
 
             PluginUtils.Log("Listener", "Stopping local listener...");
-            HookHttps.Quit();
             _localListener.Stop();
             _localListener = null;
 
@@ -213,6 +211,7 @@ namespace Lib_K_Relay
         {
             PluginUtils.ProtectedInvoke(() =>
             {
+                PluginUtils.Log("Packet", packet.Type.ToString());
                 // Fire general server packet callbacks
                 if (ServerPacketRecieved != null) ServerPacketRecieved(client, packet);
 
@@ -237,6 +236,7 @@ namespace Lib_K_Relay
         {
             PluginUtils.ProtectedInvoke(() =>
             {
+                PluginUtils.Log("Packet", packet.Type.ToString());
                 // Fire command callbacks
                 if (packet.Type == PacketType.PLAYERTEXT)
                 {

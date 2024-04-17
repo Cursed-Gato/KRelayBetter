@@ -135,8 +135,8 @@ namespace Lib_K_Relay.Utilities
             var notif = (NotificationPacket)Packet.Create(PacketType.NOTIFICATION);
             notif.Message = message;
             notif.PictureType = picture;
-            notif.Effect = 8;
-            notif.Extra = 10;
+            notif.TypeValue = NotificationPacket.NotificationType.PortalOpened;
+            notif.TextByte = 10;
             return notif;
         }
 

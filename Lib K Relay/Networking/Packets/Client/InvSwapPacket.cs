@@ -11,7 +11,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public SlotObject SlotObject2;
         public int Time;
 
-        public override PacketType Type => PacketType.INVSWAP;
+        public override PacketType Type => PacketType.INVENTORYSWAP;
 
         public override void Read(PacketReader r)
         {

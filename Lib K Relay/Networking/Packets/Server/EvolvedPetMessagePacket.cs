@@ -6,7 +6,7 @@
         public int InitialSkin;
         public int PetId;
 
-        public override PacketType Type => PacketType.EVOLVE_PET;
+        public override PacketType Type => PacketType.EVOLVEDPET;
 
         public override void Read(PacketReader r)
         {

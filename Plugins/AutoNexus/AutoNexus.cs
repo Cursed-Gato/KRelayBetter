@@ -98,7 +98,7 @@ namespace AutoNexus
             foreach (var status in tick.Statuses)
                 if (status.ObjectId == Client.ObjectId)
                     foreach (var stat in status.Data)
-                        if (stat.Id == (int)StatsType.Stats.Hp)
+                        if (stat.Id == (int)StatsType.Stats.HpStat)
                             Hp = stat.IntValue;
 
             ArmorBroken = Client.PlayerData.HasConditionEffect(ConditionEffectIndex.ArmorBroken);

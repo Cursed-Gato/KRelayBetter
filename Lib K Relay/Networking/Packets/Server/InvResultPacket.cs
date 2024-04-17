@@ -9,7 +9,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public bool Result;
         public SlotObject ToSlotObject = new SlotObject();
 
-        public override PacketType Type => PacketType.INVRESULT;
+        public override PacketType Type => PacketType.INVENTORYRESULT;
 
         public override void Read(PacketReader r)
         {

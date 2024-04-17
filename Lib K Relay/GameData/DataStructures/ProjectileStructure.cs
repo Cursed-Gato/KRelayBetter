@@ -1,102 +1,60 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Lib_K_Relay.GameData.DataStructures
 {
     public class ProjectileStructure : IDataStructure<byte>
     {
-        public int Acceleration;
-
-        public float AccelerationDelay;
-        public float Amplitude;
-        public bool ArmorPiercing;
-        public bool Boomerang;
-
-        /// <summary>
-        ///     How much damage the projectile deals
-        /// </summary>
         public int Damage;
-
-        public float Frequency;
-
-        /// <summary>
-        ///     The lifetime of the projectile, in milliseconds
-        /// </summary>
+        public float Speed;
+        public int Size;
         public float Lifetime;
-
-        public float Magnitude;
-
         public int MaxDamage;
         public int MinDamage;
-        public bool MultiHit;
+        public float Magnitude;
+        public float Amplitude;
+        public float Frequency;
+        public bool Wavy;
         public bool Parametric;
+        public bool Boomerang;
+        public bool ArmorPiercing;
+        public bool MultiHit;
         public bool PassesCover;
-
-        /// <summary>
-        ///     The size of the projectile
-        /// </summary>
-        public int Size;
-
-        /// <summary>
-        ///     How fast the projectile moves
-        /// </summary>
-        public float Speed;
-
-        public int SpeedClamp;
-
-        /// <summary>
-        ///     What status effects, if any, the projectile applies (name: duration in seconds)
-        /// </summary>
         public Dictionary<string, float> StatusEffects;
 
-        public bool Wavy;
+        public byte Id { get; private set; }
+
+        public string Name { get; private set; }
 
         public ProjectileStructure(XElement projectile)
         {
-            Id = (byte)projectile.AttrDefault("id", "0").ParseInt();
-            Damage = projectile.ElemDefault("Damage", "0").ParseInt();
-            Speed = projectile.ElemDefault("Speed", "0").ParseFloat() / 10000f;
-            Size = projectile.ElemDefault("Size", "0").ParseInt();
-            Lifetime = projectile.ElemDefault("LifetimeMS", "0").ParseFloat();
-
-            MaxDamage = projectile.ElemDefault("MaxDamage", "0").ParseInt();
-            MinDamage = projectile.ElemDefault("MinDamage", "0").ParseInt();
-            Acceleration = projectile.ElemDefault("Acceleration", "0").ParseInt();
-            AccelerationDelay = projectile.ElemDefault("AccelerationDelay", "0").ParseFloat();
-            SpeedClamp = projectile.ElemDefault("SpeedClamp", "-1").ParseInt();
-
-            Magnitude = projectile.ElemDefault("Magnitude", "0").ParseFloat();
-            Amplitude = projectile.ElemDefault("Amplitude", "0").ParseFloat();
-            Frequency = projectile.ElemDefault("Frequency", "0").ParseFloat();
-
-            Wavy = projectile.HasElement("Wavy");
-            Parametric = projectile.HasElement("Parametric");
-            Boomerang = projectile.HasElement("Boomerang");
-            ArmorPiercing = projectile.HasElement("ArmorPiercing");
-            MultiHit = projectile.HasElement("MultiHit");
-            PassesCover = projectile.HasElement("PassesCover");
-
+            Id = (byte)projectile.AttrDefault((XName)"id", "0").ParseInt();
+            Damage = projectile.ElemDefault((XName)nameof(Damage), "0").ParseInt();
+            Speed = projectile.ElemDefault((XName)nameof(Speed), "0").ParseFloat() / 10000f;
+            Size = projectile.ElemDefault((XName)nameof(Size), "0").ParseInt();
+            Lifetime = projectile.ElemDefault((XName)"LifetimeMS", "0").ParseFloat();
+            MaxDamage = projectile.ElemDefault((XName)nameof(MaxDamage), "0").ParseInt();
+            MinDamage = projectile.ElemDefault((XName)nameof(MinDamage), "0").ParseInt();
+            Magnitude = projectile.ElemDefault((XName)nameof(Magnitude), "0").ParseFloat();
+            Amplitude = projectile.ElemDefault((XName)nameof(Amplitude), "0").ParseFloat();
+            Frequency = projectile.ElemDefault((XName)nameof(Frequency), "0").ParseFloat();
+            Wavy = projectile.HasElement((XName)nameof(Wavy));
+            Parametric = projectile.HasElement((XName)nameof(Parametric));
+            Boomerang = projectile.HasElement((XName)nameof(Boomerang));
+            ArmorPiercing = projectile.HasElement((XName)nameof(ArmorPiercing));
+            MultiHit = projectile.HasElement((XName)nameof(MultiHit));
+            PassesCover = projectile.HasElement((XName)nameof(PassesCover));
             var effects = new Dictionary<string, float>();
-            projectile.Elements("ConditionEffect")
-                .ForEach(effect => effects[effect.Value] = effect.AttrDefault("duration", "0").ParseFloat());
-
+            projectile.Elements((XName)"ConditionEffect").ForEach<XElement>((Action<XElement>)(effect =>
+                effects[effect.Value] = effect.AttrDefault((XName)"duration", "0").ParseFloat()));
             StatusEffects = effects;
-            Name = projectile.ElemDefault("ObjectId", "");
+            Name = projectile.ElemDefault((XName)"ObjectId", "");
         }
-
-        /// <summary>
-        ///     The numerical identifier for this projectile
-        /// </summary>
-        public byte Id { get; }
-
-        /// <summary>
-        ///     The text identifier for this projectile
-        /// </summary>
-        public string Name { get; }
 
         public override string ToString()
         {
-            return $"Projectile: {Name} (0x{Id:X})";
+            return string.Format("Projectile: {0} (0x{1:X})", (object)Name, (object)Id);
         }
     }
 }

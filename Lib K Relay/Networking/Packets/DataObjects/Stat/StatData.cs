@@ -6,7 +6,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
     public class StatData : IDataObject {
         public StatsType Id;
         public int IntValue;
-        public int SecondaryValue;
+        public int StackCount;
         public string StringValue;
 
         public IDataObject Read(PacketReader r) {
@@ -14,9 +14,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
             if (IsStringData())
                 StringValue = r.ReadString();
             else
-                IntValue = CompressedInt.Read(r);
+                IntValue = r.ReadCompressedInt();
 
-            SecondaryValue = CompressedInt.Read(r);
+            StackCount = r.ReadCompressedInt();
 
             return this;
         }
@@ -26,9 +26,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
             if (IsStringData())
                 w.Write(StringValue);
             else
-                CompressedInt.Write(w, IntValue);
+                w.WriteCompressedInt(IntValue);
 
-            CompressedInt.Write(w, SecondaryValue);
+            w.WriteCompressedInt(StackCount);
         }
 
         public object Clone() {
@@ -36,7 +36,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
                 Id = Id,
                 IntValue = IntValue,
                 StringValue = StringValue,
-                SecondaryValue = SecondaryValue
+                StackCount = StackCount
             };
         }
 
@@ -46,7 +46,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
 
         public override string ToString() {
             return "{ Id=" + Id + " Value=" + (IsStringData() ? StringValue : IntValue.ToString()) +
-                   " SecondaryValue=" + SecondaryValue + " }";
+                   " StackCount=" + StackCount + " }";
         }
     }
 
@@ -61,15 +61,20 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects.Stat
 
         public bool IsUtf()
         {
-            return (int)this == (int)Stats.Name
-                   || (int)this == (int)Stats.Experience
-                   || (int)this == (int)Stats.AccountId
-                   || (int)this == (int)Stats.OwnerAccountId
-                   || (int)this == (int)Stats.GuildName
-                   || (int)this == (int)Stats.Skin
-                   || (int)this == (int)Stats.PetName
+            return (int)this == (int)Stats.ExpStat
+                   || (int)this == (int)Stats.NameStat
+                   || (int)this == (int)Stats.AccountIdStat
+                   || (int)this == (int)Stats.OwnerAccountIdStat
+                   || (int)this == (int)Stats.GuildNameStat
+                   || (int)this == (int)Stats.MaterialStat
+                   || (int)this == (int)Stats.MaterialCapStat
+                   || (int)this == (int)Stats.UniqueDataStr
                    || (int)this == (int)Stats.GraveAccountId
-                   || (int)this == (int)Stats.DungeonModifiers;
+                   || (int)this == (int)Stats.ModifiersStat
+                   || (int)this == (int)Stats.DustStat
+                   || (int)this == (int)Stats.CrucibleStat
+                   || (int)this == (int)Stats.DustAmountStat
+                   || (int)this == (int)Stats.PetNameStat;
         }
 
         public static implicit operator StatsType(int type)

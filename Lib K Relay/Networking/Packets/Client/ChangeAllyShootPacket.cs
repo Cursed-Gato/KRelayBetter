@@ -4,7 +4,7 @@
     {
         public int Toggle;
 
-        public override PacketType Type => PacketType.CHANGE_ALLY_SHOOT;
+        public override PacketType Type => PacketType.CHANGEALLYSHOOT;
 
         public override void Read(PacketReader r)
         {

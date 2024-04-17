@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Lib_K_Relay.GameData.DataStructures;
@@ -91,7 +92,6 @@ namespace Lib_K_Relay.GameData
 
         static GameData()
         {
-            // Cache the XMLs because Resource accessors are slow
             RawObjectsXml = Resources.Objects;
             RawPacketsXml = Resources.Packets;
             RawTilesXml = Resources.Tiles;

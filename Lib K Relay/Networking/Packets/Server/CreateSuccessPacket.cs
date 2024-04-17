@@ -6,7 +6,7 @@
         public int ObjectId;
         public string Stats;
 
-        public override PacketType Type => PacketType.CREATE_SUCCESS;
+        public override PacketType Type => PacketType.CREATESUCCESS;
 
         public override void Read(PacketReader r)
         {

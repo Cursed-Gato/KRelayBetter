@@ -49,7 +49,7 @@ namespace DailyQuestMode
             {
                 if (_currentMap == "Nexus")
                 {
-                    client.SendToServer((GoToQuestRoomPacket)Packet.Create(PacketType.QUEST_ROOM_MSG));
+                    client.SendToServer((GoToQuestRoomPacket)Packet.Create(PacketType.GOTOQUESTROOM));
                     return;
                 }
 
@@ -67,7 +67,7 @@ namespace DailyQuestMode
                     if (!_firstLoad && _currentMap != "Nexus") return;
                     packet.Send = false;
                     _firstLoad = false;
-                    client.SendToServer((GoToQuestRoomPacket)Packet.Create(PacketType.QUEST_ROOM_MSG));
+                    client.SendToServer((GoToQuestRoomPacket)Packet.Create(PacketType.GOTOQUESTROOM));
                 });
             }
         }

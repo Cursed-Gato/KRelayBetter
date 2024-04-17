@@ -6,7 +6,7 @@
         public int PetId;
         public int SkinType;
 
-        public override PacketType Type => PacketType.PET_CHANGE_SKIN_MSG;
+        public override PacketType Type => PacketType.CHANGEPETSKIN;
 
         public override void Read(PacketReader r)
         {

@@ -43,7 +43,7 @@ namespace MapCacher
         /// <summary>
         ///     The UUID of the map
         /// </summary>
-        public uint Uuid;
+        public int Uuid;
 
         /// <summary>
         ///     The dimensions of the map
@@ -56,7 +56,7 @@ namespace MapCacher
         /// <param name="info">The MapInfoPacket</param>
         public Map(MapInfoPacket info)
         {
-            Uuid = info.Seed;
+            Uuid = info.Fp;
             Width = info.Width;
             Height = info.Height;
             Data = new ushort[Width, Height];
@@ -85,7 +85,7 @@ namespace MapCacher
     {
         public static readonly int MaxTilesPerPacket = 2048;
 
-        public static Dictionary<uint, Map> CachedMaps = new Dictionary<uint, Map>();
+        public static Dictionary<int, Map> CachedMaps = new Dictionary<int, Map>();
 
         public static Dictionary<Client, Map> CurrentMaps = new Dictionary<Client, Map>();
 
@@ -145,9 +145,9 @@ namespace MapCacher
             var mapInfo = p as MapInfoPacket;
 
             Map map;
-            if (CachedMaps.ContainsKey(mapInfo.Seed))
+            if (CachedMaps.ContainsKey(mapInfo.Fp))
             {
-                map = CachedMaps[mapInfo.Seed];
+                map = CachedMaps[mapInfo.Fp];
                 CurrentMaps[client] = map;
 
                 // queue cached tiles

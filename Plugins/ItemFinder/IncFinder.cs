@@ -108,7 +108,7 @@ namespace ItemFinder
                         if (statData.IntValue == item.Key)
                             hasItem = true;
 
-                    if (!hasItem || statData.Id != (int)StatsType.Stats.Name ||
+                    if (!hasItem || statData.Id != (int)StatsType.Stats.NameStat ||
                         statData.StringValue == client.PlayerData.Name) continue;
 
                     if (!_itemHolders.ContainsKey(entity.Status.ObjectId))

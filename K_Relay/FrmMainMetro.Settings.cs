@@ -49,8 +49,8 @@ namespace K_Relay
         {
             Config.Default.StartProxyByDefault = tglStartByDefault.Checked;
             Config.Default.DefaultServerName = lstServers.SelectedItem.ToString();
-            Lib_K_Relay.Utilities.Config.Default.ProxyServerName = ProxyServerNameTxtBox.Text;
-            Lib_K_Relay.Utilities.Config.Default.Save();
+            Config.Default.ProxyServerName = ProxyServerNameTxtBox.Text;
+            Config.Default.Save();
             Config.Default.Theme =
                 (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
             Config.Default.Style =

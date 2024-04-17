@@ -5,7 +5,7 @@
         public int IsPetSkin; // ??? why is it int
         public int SkinId;
 
-        public override PacketType Type => PacketType.RESKIN_UNLOCK;
+        public override PacketType Type => PacketType.RESKIN;
 
         public override void Read(PacketReader r)
         {

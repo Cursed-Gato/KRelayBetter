@@ -2,7 +2,7 @@
 {
     public class ResetDailyQuestsPacket : Packet
     {
-        public override PacketType Type => PacketType.RESET_DAILY_QUESTS;
+        public override PacketType Type => PacketType.RESETDAILYQUESTS;
 
         public override void Read(PacketReader r)
         {

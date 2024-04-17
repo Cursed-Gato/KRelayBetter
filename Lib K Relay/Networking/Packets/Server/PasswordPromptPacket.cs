@@ -8,7 +8,7 @@
 
         public int CleanPasswordStatus;
 
-        public override PacketType Type => PacketType.PASSWORD_PROMPT;
+        public override PacketType Type => PacketType.PASSWORDPROMPT;
 
         public override void Read(PacketReader r)
         {

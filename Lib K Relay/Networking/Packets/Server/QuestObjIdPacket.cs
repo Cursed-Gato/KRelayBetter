@@ -7,20 +7,21 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public int ObjectId;
         public int[] Unknown;
 
-        public override PacketType Type => PacketType.QUESTOBJID;
+        public override PacketType Type => PacketType.QUESTOBJECTID;
 
         public override void Read(PacketReader r)
         {
             ObjectId = r.ReadInt32();
-            Unknown = new int[CompressedInt.Read(r)];
-            for (var i = 0; i < Unknown.Length; i++) Unknown[i] = CompressedInt.Read(r);
+            Unknown = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < Unknown.Length; i++) Unknown[i] = r.ReadCompressedInt();
         }
 
         public override void Write(PacketWriter w)
         {
             w.Write(ObjectId);
-            CompressedInt.Write(w, Unknown.Length);
-            foreach (var i in Unknown) CompressedInt.Write(w, i);
+            w.WriteCompressedInt(Unknown.Length);
+            foreach (var i in Unknown)
+                w.WriteCompressedInt(i);
         }
     }
 }

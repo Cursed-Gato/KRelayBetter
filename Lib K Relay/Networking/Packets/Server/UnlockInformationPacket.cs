@@ -4,7 +4,7 @@
     {
         public int UnlockType;
 
-        public override PacketType Type => PacketType.UNLOCK_INFORMATION;
+        public override PacketType Type => PacketType.UNLOCKNEWSLOT;
 
         public override void Read(PacketReader r)
         {

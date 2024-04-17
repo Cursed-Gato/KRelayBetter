@@ -27,6 +27,26 @@ namespace Lib_K_Relay.Networking.Packets
             return IPAddress.NetworkToHostOrder(base.ReadInt32());
         }
 
+        public int ReadCompressedInt()
+        {
+            byte firstByte = this.ReadByte();
+            bool isNegative = ((uint)firstByte & 64U) > 0U;
+            byte shift = 6; 
+            int result = (int)firstByte & 63; 
+
+            while (((int)firstByte & 128) != 0)
+            {
+                firstByte = this.ReadByte();
+                result |= ((int)firstByte & (int)sbyte.MaxValue) << (int)shift; 
+                shift += 7; 
+            }
+
+            if (isNegative)
+                result = -result;
+
+            return result;
+        }
+
         public override float ReadSingle()
         {
             var arr = base.ReadBytes(4);

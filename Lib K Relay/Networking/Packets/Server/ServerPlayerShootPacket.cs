@@ -1,18 +1,20 @@
 ﻿using Lib_K_Relay.Networking.Packets.DataObjects.Location;
+using Lib_K_Relay.Utilities;
 
 namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class ServerPlayerShootPacket : Packet
     {
         public float Angle;
+        public float AngleInc = -1.0f;
         public ushort BulletId;
         public int ContainerType;
         public short Damage;
         public int OwnerId;
-        public byte ShotCount;
+        public byte NumShots = 0;
         public Location StartingLoc;
-        public int Unknown1;
-        public int Unknown2;
+        public int SuperOwnerId;
+        public int BulletType = -1;
 
         public override PacketType Type => PacketType.SERVERPLAYERSHOOT;
 
@@ -24,10 +26,22 @@ namespace Lib_K_Relay.Networking.Packets.Server
             StartingLoc = (Location)new Location().Read(r);
             Angle = r.ReadSingle();
             Damage = r.ReadInt16();
-            Unknown1 = r.ReadInt32();
-            ShotCount = r.ReadByte();
-            if (ShotCount > 0)
-                Unknown2 = r.ReadInt32();
+            SuperOwnerId = r.ReadInt32();
+
+            if(r.BaseStream.Position != r.BaseStream.Length)
+            {
+                BulletType = r.ReadByte();
+
+                if (r.BaseStream.Position != r.BaseStream.Length)
+                {
+                    NumShots = r.ReadByte();
+
+                    if (r.BaseStream.Position != r.BaseStream.Length)
+                    {
+                        AngleInc = r.ReadSingle();
+                    }
+                }
+            }
         }
 
         public override void Write(PacketWriter w)
@@ -38,10 +52,23 @@ namespace Lib_K_Relay.Networking.Packets.Server
             StartingLoc.Write(w);
             w.Write(Angle);
             w.Write(Damage);
-            w.Write(Unknown1);
-            w.Write(ShotCount);
-            if (ShotCount > 0)
-                w.Write(Unknown2);
+            w.Write(SuperOwnerId);
+
+            if (BulletType != -1)
+            {
+                w.Write(BulletType);
+                
+                if(NumShots != 0)
+                {
+                    w.Write(NumShots);
+
+                    if(AngleInc != -1.0f)
+                    {
+                        w.Write(AngleInc);
+                    }
+                }
+            }
+            PluginUtils.Log("Log", ToString());
         }
     }
 }

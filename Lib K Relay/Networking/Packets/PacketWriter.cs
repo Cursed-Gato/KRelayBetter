@@ -41,6 +41,29 @@ namespace Lib_K_Relay.Networking.Packets
             base.Write(data);
         }
 
+        public void WriteCompressedInt(int value)
+        {
+            int num1 = value < 0 ? 1 : 0;
+            uint num2 = num1 != 0 ? (uint)-value : (uint)value;
+            byte num3 = (byte)(num2 & 63U);
+            if (num1 != 0)
+                num3 |= (byte)64;
+            uint num4 = num2 >> 6;
+            bool flag = num4 > 0U;
+            if (flag)
+                num3 |= (byte)128;
+            this.Write(num3);
+            while (flag)
+            {
+                byte num5 = (byte)(num4 & (uint)sbyte.MaxValue);
+                num4 >>= 7;
+                flag = num4 > 0U;
+                if (flag)
+                    num5 |= (byte)128;
+                this.Write(num5);
+            }
+        }
+
         public void WriteUtf32(string value)
         {
             Write(value.Length);

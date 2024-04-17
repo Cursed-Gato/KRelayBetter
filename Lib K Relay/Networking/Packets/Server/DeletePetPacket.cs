@@ -4,7 +4,7 @@
     {
         public int PetId;
 
-        public override PacketType Type => PacketType.DELETE_PET;
+        public override PacketType Type => PacketType.DELETEPET;
 
         public override void Read(PacketReader r)
         {

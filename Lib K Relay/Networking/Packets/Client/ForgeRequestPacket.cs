@@ -8,7 +8,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public int CraftItemId;
         public SlotObject[] Offers;
 
-        public override PacketType Type => PacketType.FORGE_REQUEST;
+        public override PacketType Type => PacketType.FORGEREQUEST;
 
         public override void Read(PacketReader r)
         {

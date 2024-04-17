@@ -2,42 +2,42 @@
 {
     public class ExaltationBonusChangedPacket : Packet
     {
-        public byte AttackProgress;
-        public byte DefenseProgress;
-        public byte DexterityProgress;
-        public byte HealthProgress;
-        public byte ManaProgress;
         public short ObjectType;
-        public byte SpeedProgress;
-        public byte VitalityProgress;
-        public byte WisdomProgress;
+        public int AttackProgress;
+        public int DefenseProgress;
+        public int DexterityProgress;
+        public int HealthProgress;
+        public int ManaProgress;
+        public int SpeedProgress;
+        public int VitalityProgress;
+        public int WisdomProgress;
 
-        public override PacketType Type => PacketType.EXALTATION_BONUS_CHANGED;
+        public override PacketType Type => PacketType.EXALTATIONBONUSCHANGED;
 
         public override void Read(PacketReader r)
         {
             ObjectType = r.ReadInt16();
-            DexterityProgress = r.ReadByte();
-            SpeedProgress = r.ReadByte();
-            VitalityProgress = r.ReadByte();
-            WisdomProgress = r.ReadByte();
-            DefenseProgress = r.ReadByte();
-            AttackProgress = r.ReadByte();
-            ManaProgress = r.ReadByte();
-            HealthProgress = r.ReadByte();
+            DexterityProgress = r.ReadCompressedInt();
+            SpeedProgress = r.ReadCompressedInt();
+            VitalityProgress = r.ReadCompressedInt();
+            WisdomProgress = r.ReadCompressedInt();
+            DefenseProgress = r.ReadCompressedInt();
+            AttackProgress = r.ReadCompressedInt();
+            ManaProgress = r.ReadCompressedInt();
+            HealthProgress = r.ReadCompressedInt();
         }
 
         public override void Write(PacketWriter w)
         {
-            w.Write(ObjectType);
-            w.Write(DexterityProgress);
-            w.Write(SpeedProgress);
-            w.Write(VitalityProgress);
-            w.Write(WisdomProgress);
-            w.Write(DefenseProgress);
-            w.Write(AttackProgress);
-            w.Write(ManaProgress);
-            w.Write(HealthProgress);
+            w.WriteCompressedInt(ObjectType);
+            w.WriteCompressedInt(DexterityProgress);
+            w.WriteCompressedInt(SpeedProgress);
+            w.WriteCompressedInt(VitalityProgress);
+            w.WriteCompressedInt(WisdomProgress);
+            w.WriteCompressedInt(DefenseProgress);
+            w.WriteCompressedInt(AttackProgress);
+            w.WriteCompressedInt(ManaProgress);
+            w.WriteCompressedInt(HealthProgress);
         }
     }
 }

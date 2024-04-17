@@ -4,7 +4,7 @@
     {
         public string CharacterXml;
 
-        public override PacketType Type => PacketType.NEW_CHARACTER_INFORMATION;
+        public override PacketType Type => PacketType.NEWCHARACTERINFORMATION;
 
         public override void Read(PacketReader r)
         {

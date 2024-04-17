@@ -6,7 +6,7 @@
         public string PetName;
         public int PetSkinId;
 
-        public override PacketType Type => PacketType.HATCH_PET;
+        public override PacketType Type => PacketType.HATCHPET;
 
         public override void Read(PacketReader r)
         {

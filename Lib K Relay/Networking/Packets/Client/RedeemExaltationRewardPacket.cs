@@ -4,7 +4,7 @@
     {
         public int ItemId;
 
-        public override PacketType Type => PacketType.REDEEM_EXALTATION_REWARD;
+        public override PacketType Type => PacketType.REDEEMEXALTATIONREWARD;
 
         public override void Read(PacketReader r)
         {

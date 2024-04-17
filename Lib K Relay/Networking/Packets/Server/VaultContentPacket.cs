@@ -4,77 +4,106 @@ namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class VaultContentPacket : Packet
     {
-        public short CurrentPotionMax;
-        public int[] GiftContents;
-        public int GiftItemCount;
-        public byte[] GiftItemString;
-        public short NextPotionMax;
-        public int[] PotionContents;
-        public int PotionItemCount;
-        public short PotionUpgradeCost;
-        public bool UnknownBool;
-        public int[] VaultContents;
-        public int VaultItemCount;
-        public byte[] VaultItemString;
-        public short VaultUpgradeCost;
+        public bool lastVaultUpdate;
+        public int vaultChestObjectId;
+        public int materialChestObjectID;
+        public int giftChestObjectId;
+        public int potionStorageObjectId;
+        public int seasonalSpoilChestObjectId;
+        public int[] vaultContents;
+        public int[] materialContents;
+        public int[] giftContents;
+        public int[] potionContents;
+        public int[] seasonalSpoilContent;
+        public short vaultUpgradeCost;
+        public short materialUpgradeCost;
+        public short potionUpgradeCost;
+        public short currentPotionMax;
+        public short nextPotionMax;
+        public string vaultChestEnchants;
+        public string giftChestEnchants;
+        public string spoilsChestEnchants;
 
-        public override PacketType Type => PacketType.VAULT_CONTENT;
+        public override PacketType Type => PacketType.VAULTCONTENT;
 
         public override void Read(PacketReader r)
         {
-            UnknownBool = r.ReadBoolean();
-            VaultItemCount = CompressedInt.Read(r);
-            GiftItemCount = CompressedInt.Read(r);
-            PotionItemCount = CompressedInt.Read(r);
+            lastVaultUpdate = r.ReadBoolean();
+            vaultChestObjectId = r.ReadCompressedInt();
+            materialChestObjectID = r.ReadCompressedInt();
+            giftChestObjectId = r.ReadCompressedInt();
+            potionStorageObjectId = r.ReadCompressedInt();
+            seasonalSpoilChestObjectId = r.ReadCompressedInt();
 
-            VaultContents = new int[CompressedInt.Read(r)];
-            for (var i = 0; i < VaultContents.Length; i++)
-                VaultContents[i] = CompressedInt.Read(r);
+            vaultContents = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < vaultContents.Length; i++)
+                vaultContents[i] = r.ReadCompressedInt();
 
-            GiftContents = new int[CompressedInt.Read(r)];
-            for (var i = 0; i < GiftContents.Length; i++)
-                GiftContents[i] = CompressedInt.Read(r);
+            materialContents = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < materialContents.Length; i++)
+                materialContents[i] = r.ReadCompressedInt();
 
-            PotionContents = new int[CompressedInt.Read(r)];
-            for (var i = 0; i < PotionContents.Length; i++)
-                PotionContents[i] = CompressedInt.Read(r);
+            giftContents = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < giftContents.Length; i++)
+                giftContents[i] = r.ReadCompressedInt();
 
-            VaultUpgradeCost = r.ReadInt16();
-            PotionUpgradeCost = r.ReadInt16();
-            CurrentPotionMax = r.ReadInt16();
-            NextPotionMax = r.ReadInt16();
-            VaultItemString = r.ReadBytes(r.ReadInt16());
-            GiftItemString = r.ReadBytes(r.ReadInt16());
+            potionContents = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < potionContents.Length; i++)
+                potionContents[i] = r.ReadCompressedInt();
+
+            seasonalSpoilContent = new int[r.ReadCompressedInt()];
+            for (var i = 0; i < seasonalSpoilContent.Length; i++)
+                seasonalSpoilContent[i] = r.ReadCompressedInt();
+
+            vaultUpgradeCost = r.ReadInt16();
+            materialUpgradeCost = r.ReadInt16();
+            potionUpgradeCost = r.ReadInt16();
+            currentPotionMax = r.ReadInt16();
+            nextPotionMax = r.ReadInt16();
+
+            vaultChestEnchants = r.ReadString();
+            giftChestEnchants = r.ReadString();
+            spoilsChestEnchants = r.ReadString();
         }
 
         public override void Write(PacketWriter w)
         {
-            w.Write(UnknownBool);
-            CompressedInt.Write(w, VaultItemCount);
-            CompressedInt.Write(w, GiftItemCount);
-            CompressedInt.Write(w, PotionItemCount);
+            w.Write(lastVaultUpdate);
+            w.WriteCompressedInt(vaultChestObjectId);
+            w.WriteCompressedInt(materialChestObjectID);
+            w.WriteCompressedInt(giftChestObjectId);
+            w.WriteCompressedInt(potionStorageObjectId);
+            w.WriteCompressedInt(seasonalSpoilChestObjectId);
 
-            CompressedInt.Write(w, VaultContents.Length);
-            foreach (var i in VaultContents)
-                CompressedInt.Write(w, i);
+            w.WriteCompressedInt(vaultContents.Length);
+            foreach (var item in vaultContents)
+                w.WriteCompressedInt(item);
 
-            CompressedInt.Write(w, GiftContents.Length);
-            foreach (var i in GiftContents)
-                CompressedInt.Write(w, i);
+            w.WriteCompressedInt(materialContents.Length);
+            foreach (var item in materialContents)
+                w.WriteCompressedInt(item);
 
-            CompressedInt.Write(w, PotionContents.Length);
-            foreach (var i in PotionContents)
-                CompressedInt.Write(w, i);
+            w.WriteCompressedInt(giftContents.Length);
+            foreach (var item in giftContents)
+                w.WriteCompressedInt(item);
 
-            w.Write(VaultUpgradeCost);
-            w.Write(PotionUpgradeCost);
-            w.Write(CurrentPotionMax);
-            w.Write(NextPotionMax);
+            w.WriteCompressedInt(potionContents.Length);
+            foreach (var item in potionContents)
+                w.WriteCompressedInt(item);
 
-            w.Write((short)VaultItemString.Length);
-            w.Write(VaultItemString);
-            w.Write((short)GiftItemString.Length);
-            w.Write(GiftItemString);
+            w.WriteCompressedInt(seasonalSpoilContent.Length);
+            foreach (var item in seasonalSpoilContent)
+                w.WriteCompressedInt(item);
+
+            w.Write(vaultUpgradeCost);
+            w.Write(materialUpgradeCost);
+            w.Write(potionUpgradeCost);
+            w.Write(currentPotionMax);
+            w.Write(nextPotionMax);
+
+            w.WriteUtf32(vaultChestEnchants);
+            w.WriteUtf32(giftChestEnchants);
+            w.WriteUtf32(spoilsChestEnchants);
         }
     }
 }

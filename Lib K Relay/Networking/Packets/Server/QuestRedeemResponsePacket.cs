@@ -5,7 +5,7 @@
         public string Message;
         public bool Success;
 
-        public override PacketType Type => PacketType.QUEST_REDEEM_RESPONSE;
+        public override PacketType Type => PacketType.QUESTREDEEMRESPONSE;
 
         public override void Read(PacketReader r)
         {

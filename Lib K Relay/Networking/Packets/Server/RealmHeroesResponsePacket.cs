@@ -4,7 +4,7 @@
     {
         public int HeroesLeft;
 
-        public override PacketType Type => PacketType.REALM_HERO_LEFT_MSG;
+        public override PacketType Type => PacketType.HEROLEFT;
 
         public override void Read(PacketReader r)
         {

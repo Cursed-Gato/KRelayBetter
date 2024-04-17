@@ -6,7 +6,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
     {
         public Ability AbilityType;
 
-        public override PacketType Type => PacketType.NEW_ABILITY;
+        public override PacketType Type => PacketType.NEWABILITY;
 
         public override void Read(PacketReader r)
         {

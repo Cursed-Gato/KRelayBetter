@@ -5,7 +5,7 @@
         public string Text;
         public int TypeId;
 
-        public override PacketType Type => PacketType.GLOBAL_NOTIFICATION;
+        public override PacketType Type => PacketType.NOTIFICATION;
 
         public override void Read(PacketReader r)
         {

@@ -19,7 +19,7 @@ namespace Lib_K_Relay.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -82,7 +82,7 @@ namespace Lib_K_Relay.Properties {
         ///    &lt;Friendly /&gt;
         ///    &lt;NoMiniMap /&gt;
         ///  &lt;/Object&gt;
-        ///  &lt;Object type=&quot;0xb101&quot; id=&quot;G [rest of string was truncated]&quot;;.
+        ///  &lt;Objec [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Objects {
             get {
@@ -94,31 +94,22 @@ namespace Lib_K_Relay.Properties {
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///
         ///&lt;Packets&gt;
-        ///    &lt;Packet id=&quot;FAILURE&quot; type=&quot;0&quot;/&gt;
-        ///    &lt;Packet id=&quot;CREATE_SUCCESS&quot; type=&quot;101&quot;/&gt;
-        ///    &lt;Packet id=&quot;CREATE&quot; type=&quot;61&quot;/&gt;
-        ///    &lt;Packet id=&quot;PLAYERSHOOT&quot; type=&quot;30&quot;/&gt;
-        ///    &lt;Packet id=&quot;MOVE&quot; type=&quot;42&quot;/&gt;
-        ///    &lt;Packet id=&quot;PLAYERTEXT&quot; type=&quot;10&quot;/&gt;
-        ///    &lt;Packet id=&quot;TEXT&quot; type=&quot;44&quot;/&gt;
-        ///    &lt;Packet id=&quot;SERVERPLAYERSHOOT&quot; type=&quot;12&quot;/&gt;
-        ///    &lt;Packet id=&quot;DAMAGE&quot; type=&quot;75&quot;/&gt;
-        ///    &lt;Packet id=&quot;UPDATE&quot; type=&quot;62&quot;/&gt;
-        ///    &lt;Packet id=&quot;UPDATEACK&quot; type=&quot;81&quot;/&gt;
-        ///    &lt;Packet id=&quot;NOTIFICATION&quot; type=&quot;67 [rest of string was truncated]&quot;;.
+        ///   &lt;Packet id=&quot;FAILURE&quot; type=&quot;0&quot;/&gt;
+        ///   &lt;Packet id=&quot;CREATE_SUCCESS&quot; type=&quot;101&quot;/&gt;
+        ///   &lt;Packet id=&quot;CREATE&quot; type=&quot;61&quot;/&gt;
+        ///   &lt;Packet id=&quot;PLAYERSHOOT&quot; type=&quot;30&quot;/&gt;
+        ///   &lt;Packet id=&quot;MOVE&quot; type=&quot;42&quot;/&gt;
+        ///   &lt;Packet id=&quot;PLAYERTEXT&quot; type=&quot;10&quot;/&gt;
+        ///   &lt;Packet id=&quot;TEXT&quot; type=&quot;44&quot;/&gt;
+        ///   &lt;Packet id=&quot;SERVERPLAYERSHOOT&quot; type=&quot;12&quot;/&gt;
+        ///   &lt;Packet id=&quot;DAMAGE&quot; type=&quot;75&quot;/&gt;
+        ///   &lt;Packet id=&quot;UPDATE&quot; type=&quot;62&quot;/&gt;
+        ///   &lt;Packet id=&quot;UPDATEACK&quot; type=&quot;81&quot;/&gt;
+        ///   &lt;Packet id=&quot;NOTIFICATION&quot; type=&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Packets {
             get {
                 return ResourceManager.GetString("Packets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;Servers&gt;&lt;Server&gt;&lt;Name&gt;~Proxy Server~&lt;/Name&gt;&lt;DNS&gt;127.0.0.1&lt;/DNS&gt;&lt;Lat&gt;0&lt;/Lat&gt;&lt;Long&gt;0&lt;/Long&gt;&lt;Usage&gt;0.75&lt;/Usage&gt;&lt;/Server&gt;.
-        /// </summary>
-        internal static string ProxyServer {
-            get {
-                return ResourceManager.GetString("ProxyServer", resourceCulture);
             }
         }
         
@@ -144,7 +135,7 @@ namespace Lib_K_Relay.Properties {
         ///        &lt;Name&gt;EUSouthWest&lt;/Name&gt;
         ///        &lt;DNS&gt;35.180.67.120&lt;/DNS&gt;
         ///        &lt;Lat&gt;48.86&lt;/Lat&gt;
-        ///        &lt;Long&gt;2.35&lt;/L [rest of string was truncated]&quot;;.
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Servers {
             get {
@@ -169,8 +160,7 @@ namespace Lib_K_Relay.Properties {
         ///        &lt;Color&gt;0xF2711A&lt;/Color&gt;
         ///    &lt;/Ground&gt;
         ///    &lt;Ground type=&quot;0xb004&quot; id=&quot;Abyss Volcanic Tile&quot;&gt;
-        ///        &lt;RandomTexture&gt;
-        ///            &lt; [rest of string was truncated]&quot;;.
+        ///        &lt;RandomTextur [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Tiles {
             get {

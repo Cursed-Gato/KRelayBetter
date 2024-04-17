@@ -8,7 +8,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public Location Position = new Location();
         public int Time;
 
-        public override PacketType Type => PacketType.CREEP_MOVE_MESSAGE;
+        public override PacketType Type => PacketType.CREEPMOVE;
 
         public override void Read(PacketReader r)
         {
