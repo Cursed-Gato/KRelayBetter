@@ -211,7 +211,6 @@ namespace Lib_K_Relay
         {
             PluginUtils.ProtectedInvoke(() =>
             {
-                PluginUtils.Log("Packet", packet.Type.ToString());
                 // Fire general server packet callbacks
                 if (ServerPacketRecieved != null) ServerPacketRecieved(client, packet);
 
@@ -236,7 +235,6 @@ namespace Lib_K_Relay
         {
             PluginUtils.ProtectedInvoke(() =>
             {
-                PluginUtils.Log("Packet", packet.Type.ToString());
                 // Fire command callbacks
                 if (packet.Type == PacketType.PLAYERTEXT)
                 {

@@ -91,15 +91,12 @@ namespace Lib_K_Relay.Networking.Packets
         {
             // Use reflection to get the packet's fields and values so we don't have
             // to formulate a ToString method for every packet type.
-            var fields = GetType().GetFields(BindingFlags.Public |
-                                             BindingFlags.NonPublic |
-                                             BindingFlags.Instance);
-
-            var s = new StringBuilder();
-            s.Append(Type + "(" + Id + ") Packet Instance");
-            foreach (var f in fields) s.Append("\n\t" + f.Name + " => " + f.GetValue(this));
-
-            return s.ToString();
+            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(Type.ToString() + "(" + Id.ToString() + ") Packet Instance");
+            foreach (var fieldInfo in fields)
+                stringBuilder.Append("      " + fieldInfo.Name + " => " + fieldInfo.GetValue(this)?.ToString());
+            return stringBuilder.ToString();
         }
 
         public string ToStructure()
@@ -265,18 +262,45 @@ namespace Lib_K_Relay.Networking.Packets
         MULTIPLEMISSIONSPROGRESSUPDATE,
         DAMAGEWITHEFFECT,
         SETDISCOVERABLE,
-        UNKNOWN169,
+        REALMSCOREUPDATE,
+        CLAIMREWARDSINFOPROMPT,
+        CLAIMCHESTREWARDSUBMIT,
+        CHESTREWARDRESULT,
+        UNLOCKENCHANTMENTSLOT,
+        UNLOCKENCHANTMENTSLOTRESULT,
+        UNLOCKENCHANTMENT,
+        UNLOCKENCHANTMENTRESULT,
         ENABLECRUCIBLE,
         CRUCIBLERESULT,
+        GETDEFINITION,
+        RESULTDEFINITION,
         TUTORIALSTATECHANGED,
-        UNKNOWN200,
-        UNKNOWN204,
-        UNKNOWN207,
-        UNKNOWN208,
-        UNKNOWN210,
-        UNKNOWN212,
-        UNKNOWN214,
-        UNKNOWN218,
+        UPGRADEENCHANTER,
+        UPGRADEENCHANTERRESULT,
+        UPGRADEENCHANTMENT,
+        UPGRADEENCHANTMENTRESULT,
+        REROLLENCHANTMENTS,
+        REROLLENCHANTMENTSRESULT,
+        UNKNOWN191,
+        UNKNOWN192,
+        PURCHASEPETSHADER,
+        PETSHADERPURCHASERESULT,
+        DISMANTLEITEMMESSAGE,
+        UNKNOWN196,
+        UNKNOWN197,
+        UNKNOWN198,
+        UNKNOWN199,
+        CREATEPARTYMESSAGE,
+        PARTYACTION,
+        PARTYACTIONRESULT,
+        PARTYINVITATIONRESPONSE,
+        INCOMINGPARTINVITATION,
+        INCOMINGPARTYMEMBERINFO,
+        PARTYMEMBERADDED,
+        PARTYLISTMESSAGE,
+        PARTYJOINREQUEST,
+        PARTYREQUESTRESPONSE,
+        FORRECONNECTMESSAGE,
         UNKNOWN,
         UNDEFINED
     }

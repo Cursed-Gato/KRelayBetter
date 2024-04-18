@@ -137,6 +137,8 @@ namespace Lib_K_Relay.Networking
             {
                 var success = PluginUtils.ProtectedInvoke(() =>
                 {
+                    if(packet.Id > 140) 
+                        PluginUtils.Log("Packet", packet.Type.ToString());
                     var ms = new MemoryStream();
                     using (var w = new PacketWriter(ms))
                     {

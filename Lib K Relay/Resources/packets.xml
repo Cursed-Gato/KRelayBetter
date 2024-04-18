@@ -146,18 +146,48 @@
   <Packet id="MULTIPLEMISSIONSPROGRESSUPDATE" type="165"/>
   <Packet id="DAMAGEWITHEFFECT" type="166"/>
   <Packet id="SETDISCOVERABLE" type="167"/>
-  <Packet id="UNKNOWN169" type="169"/>
+  <Packet id="REALMSCOREUPDATE" type="169"/>
+  <Packet id="CLAIMREWARDSINFOPROMPT" type="170"/>
+  <Packet id="CLAIMCHESTREWARDSUBMIT" type="171"/>
+  <Packet id="CHESTREWARDRESULT" type="172"/>
+  <Packet id="UNLOCKENCHANTMENTSLOT" type="173"/>
+  <Packet id="UNLOCKENCHANTMENTSLOTRESULT" type="174"/>
+  <Packet id="UNLOCKENCHANTMENT" type="175"/>
+  <Packet id="UNLOCKENCHANTMENTRESULT" type="176"/>
+  <Packet id="APPLYENCHANTMENT" type="177"/>
+  <Packet id="APPLYENCHANTMENTRESULT" type="178"/>
+  <Packet id="ACCELERATORUPDATEDMESSAGE" type="179"/>
   <Packet id="ENABLECRUCIBLE" type="180"/>
   <Packet id="CRUCIBLERESULT" type="181"/>
+  <Packet id="GETDEFINITION" type="182"/>
+  <Packet id="RESULTDEFINITION" type="183"/>
   <Packet id="TUTORIALSTATECHANGED" type="184"/>
-  <Packet id="UNKNOWN200" type="200"/>
-  <Packet id="UNKNOWN204" type="204"/>
-  <Packet id="UNKNOWN207" type="207"/>
-  <Packet id="UNKNOWN208" type="208"/>
-  <Packet id="UNKNOWN210" type="210"/>
-  <Packet id="UNKNOWN212" type="212"/>
-  <Packet id="UNKNOWN214" type="214"/>
-  <Packet id="UNKNOWN218" type="218"/>
+  <Packet id="UPGRADEENCHANTER" type="185"/>
+  <Packet id="UPGRADEENCHANTERRESULT" type="186"/>
+  <Packet id="UPGRADEENCHANTMENT" type="187"/>
+  <Packet id="UPGRADEENCHANTMENTRESULT" type="188"/>
+  <Packet id="REROLLENCHANTMENTS" type="189"/>
+  <Packet id="REROLLENCHANTMENTSRESULT" type="190"/>
+  <Packet id="UNKNOWN191" type="191"/>
+  <Packet id="UNKNOWN192" type="192"/>
+  <Packet id="PURCHASEPETSHADER" type="193"/>
+  <Packet id="PETSHADERPURCHASERESULT" type="194"/>
+  <Packet id="DISMANTLEITEMMESSAGE" type="195"/>
+  <Packet id="UNKNOWN196" type="196"/>
+  <Packet id="UNKNOWN197" type="197"/>
+  <Packet id="UNKNOWN198" type="198"/>
+  <Packet id="UNKNOWN199" type="199"/>
+  <Packet id="CREATEPARTYMESSAGE" type="200"/>
+  <Packet id="PARTYACTION" type="204"/>
+  <Packet id="PARTYACTIONRESULT" type="207"/>
+  <Packet id="INCOMINGPARTINVITATION" type="208"/>
+  <Packet id="PARTYINVITATIONRESPONSE" type="209"/>
+  <Packet id="INCOMINGPARTYMEMBERINFO" type="210"/>
+  <Packet id="PARTYMEMBERADDED" type="212"/>
+  <Packet id="PARTYLISTMESSAGE" type="214"/>
+  <Packet id="PARTYJOINREQUEST" type="215"/>
+  <Packet id="PARTYREQUESTRESPONSE" type="217"/>
+  <Packet id="FORRECONNECTMESSAGE" type="218"/>
 
   <Packet id="UNDEFINED" type="254"/>
    <Packet id="UNKNOWN" type="255"/>

@@ -1,5 +1,4 @@
-﻿using Lib_K_Relay.Networking.Packets.DataObjects.Data;
-
+﻿
 namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class ForgeUnlockedBlueprintsPacket : Packet
@@ -19,8 +18,8 @@ namespace Lib_K_Relay.Networking.Packets.Server
 
         public override void Write(PacketWriter w)
         {
-            w.Write((byte)UnlockedItems.Length);
             w.Write(SeasonalForge);
+            w.WriteCompressedInt((byte)UnlockedItems.Length);
             foreach (var item in UnlockedItems)
                 w.WriteCompressedInt(item);
         }

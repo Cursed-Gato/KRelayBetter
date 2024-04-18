@@ -16,8 +16,8 @@ namespace Lib_K_Relay.Networking.Packets.Client
             QuestId = r.ReadString();
             ItemId = r.ReadInt32();
             Slots = new SlotObject[r.ReadInt16()];
-            foreach (var obj in Slots)
-                obj.Read(r);
+            for(int i = 0; i < Slots.Length; i++)
+                Slots[i].Read(r);
         }
 
         public override void Write(PacketWriter w)
@@ -25,8 +25,8 @@ namespace Lib_K_Relay.Networking.Packets.Client
             w.Write(QuestId);
             w.Write(ItemId);
             w.Write((short)Slots.Length);
-            foreach (var obj in Slots)
-                obj.Write(w);
+            for (int i = 0; i < Slots.Length; i++)
+                Slots[i].Write(w);
         }
     }
 }

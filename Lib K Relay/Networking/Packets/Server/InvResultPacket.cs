@@ -20,7 +20,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             FromSlotObject.Read(r);
             ToSlotObject.Read(r);
             
-            Conditions = new int[r.ReadInt32()];
+            Conditions = new int[2];
             for(int i = 0; i < Conditions.Length; i++)
             {
                 Conditions[i] = r.ReadInt32();
