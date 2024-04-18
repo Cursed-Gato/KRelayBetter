@@ -68,7 +68,6 @@ namespace Lib_K_Relay.Networking.Packets.Server
                     }
                 }
             }
-            PluginUtils.Log("Log", ToString());
         }
     }
 }

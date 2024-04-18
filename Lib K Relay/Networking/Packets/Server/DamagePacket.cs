@@ -5,8 +5,9 @@ namespace Lib_K_Relay.Networking.Packets.Server
     public class DamagePacket : Packet
     {
         public bool ArmorPierce;
-        public int BulletId;
-        public ushort Damage;
+        public short BulletId;
+        public short Damage;
+        public byte DamageProperties; //kill = DamageProperties & 1; armorPierce = (DamageProperties & 2) != 0; isLaser = (DamageProperties & 4) != 0;
         public ConditionEffectIndex[] Effects;
         public int ObjectId;
         public int TargetId;
@@ -20,9 +21,9 @@ namespace Lib_K_Relay.Networking.Packets.Server
             for (var i = 0; i < Effects.Length; i++)
                 Effects[i] = (ConditionEffectIndex)r.ReadByte();
 
-            Damage = r.ReadUInt16();
-            ArmorPierce = r.ReadBoolean();
-            BulletId = r.ReadByte();
+            Damage = r.ReadInt16();
+            DamageProperties = r.ReadByte();
+            BulletId = r.ReadInt16();
             ObjectId = r.ReadInt32();
         }
 

@@ -104,7 +104,6 @@ namespace Lib_K_Relay.Networking.Packets.Server
         private void ReadObjectType(PacketReader reader)
         {
             Message = reader.ReadString();
-            PluginUtils.Log("Notification", $"Object Type, TextByte {TextByte}, Message: {Message}");
             if (TextByte != 6) return; // Portal opened
 
             // example message: {"k":"s.opened_by","t":{"player":"IlliIIlIlllIilI",}}
@@ -114,9 +113,6 @@ namespace Lib_K_Relay.Networking.Packets.Server
             var kValue = jsonObject["k"].Value<string>();
             var tValue = jsonObject["t"].Value<JObject>();
             var playerValue = tValue["player"].Value<string>();
-
-            Console.WriteLine("[NotificationPacket] Message: " + kValue);
-            Console.WriteLine("[NotificationPacket] Player: " + playerValue);
 
             ObjectId = reader.ReadInt32();
             Color = reader.ReadInt32();

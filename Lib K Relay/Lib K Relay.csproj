@@ -73,8 +73,11 @@
     <Compile Include="Interface\IPlugin.cs" />
     <Compile Include="Networking\Client.cs" />
     <Compile Include="Networking\PacketBuffer.cs" />
+    <Compile Include="Networking\Packets\Client\ClaimDailyRewardPacket.cs" />
+    <Compile Include="Networking\Packets\Client\QuestFetchAskPacket.cs" />
     <Compile Include="Networking\Packets\Client\ShootAckCounter.cs" />
     <Compile Include="Networking\Packets\Client\ForgeRequestPacket.cs" />
+    <Compile Include="Networking\Packets\DataObjects\DailyQuest.cs" />
     <Compile Include="Networking\Packets\DataObjects\Data\BitmapData.cs" />
     <Compile Include="Networking\Packets\DataObjects\Data\CompressedInt.cs" />
     <Compile Include="Networking\Packets\DataObjects\Data\Entity.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="Networking\Packets\DataObjects\Stat\StatsType.cs" />
     <Compile Include="Networking\Packets\DataObjects\Stat\Status.cs" />
     <Compile Include="Networking\Packets\Server\MapInfoPacket.cs" />
+    <Compile Include="Networking\Packets\Server\QuestFetchResponsePacket.cs" />
     <Compile Include="Networking\Packets\UndefinedPacket.cs" />
     <Compile Include="Networking\Packets\Client\AcceptTradePacket.cs" />
     <Compile Include="Networking\Packets\Client\ChangePetSkinPacket.cs" />

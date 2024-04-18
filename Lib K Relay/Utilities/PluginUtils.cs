@@ -154,6 +154,7 @@ namespace Lib_K_Relay.Utilities
             text.NumStars = -1;
             text.ObjectId = -1;
             text.Text = message;
+
             return text;
         }
     }

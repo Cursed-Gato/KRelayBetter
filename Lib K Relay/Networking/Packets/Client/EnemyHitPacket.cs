@@ -2,7 +2,7 @@
 {
     public class EnemyHitPacket : Packet
     {
-        public int BulletId;
+        public short BulletId;
         public bool Killed;
         public int OwnerId;
         public int PlayerId;
@@ -14,7 +14,7 @@
         public override void Read(PacketReader r)
         {
             Time = r.ReadInt32();
-            BulletId = r.ReadByte();
+            BulletId = r.ReadInt16();
             PlayerId = r.ReadInt32();
             TargetId = r.ReadInt32();
             Killed = r.ReadBoolean();

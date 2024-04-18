@@ -3,13 +3,13 @@ namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class TextPacket : Packet
     {
-        public string Name;
+        public string Name = "";
         public int ObjectId;
         public short NumStars;
         public byte BubbleTime;
-        public string Recipient;
-        public string Text;
-        public string CleanText;
+        public string Recipient = "";
+        public string Text = "";
+        public string CleanText = "";
         public bool IsSupporter;
         public int StarBg;
 

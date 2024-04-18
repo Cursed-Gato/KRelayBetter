@@ -6,18 +6,18 @@ namespace Lib_K_Relay.Networking.Packets.Server
     {
         public float Angle;
         public float AngleInc;
-        public ushort BulletId;
-        public int BulletType;
+        public short BulletId;
+        public byte BulletType;
         public short Damage;
         public Location Position;
-        public int NumShots;
+        public byte NumShots;
         public int OwnerId;
 
         public override PacketType Type => PacketType.ENEMYSHOOT;
 
         public override void Read(PacketReader r)
         {
-            BulletId = r.ReadUInt16();
+            BulletId = r.ReadInt16();
             OwnerId = r.ReadInt32();
             BulletType = r.ReadByte();
             Position = (Location)new Location().Read(r);
@@ -31,7 +31,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             }
             else
             {
-                NumShots = -1;
+                NumShots = 255;
                 AngleInc = 0.0f;
             }
         }
@@ -45,7 +45,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             w.Write(Angle);
             w.Write(Damage);
 
-            if (NumShots != -1)
+            if (NumShots != 255)
             {
                 w.Write(NumShots);
                 w.Write(AngleInc);
