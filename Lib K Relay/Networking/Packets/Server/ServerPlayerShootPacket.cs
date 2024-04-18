@@ -14,7 +14,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public byte NumShots = 0;
         public Location StartingLoc;
         public int SuperOwnerId;
-        public int BulletType = -1;
+        public byte BulletType = 255;
 
         public override PacketType Type => PacketType.SERVERPLAYERSHOOT;
 
@@ -54,7 +54,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             w.Write(Damage);
             w.Write(SuperOwnerId);
 
-            if (BulletType != -1)
+            if (BulletType != 255)
             {
                 w.Write(BulletType);
                 

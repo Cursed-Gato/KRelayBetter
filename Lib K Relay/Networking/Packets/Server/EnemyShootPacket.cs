@@ -9,7 +9,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public ushort BulletId;
         public int BulletType;
         public short Damage;
-        public Location Location;
+        public Location Position;
         public int NumShots;
         public int OwnerId;
 
@@ -20,7 +20,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             BulletId = r.ReadUInt16();
             OwnerId = r.ReadInt32();
             BulletType = r.ReadByte();
-            Location = (Location)new Location().Read(r);
+            Position = (Location)new Location().Read(r);
             Angle = r.ReadSingle();
             Damage = r.ReadInt16();
 
@@ -31,8 +31,8 @@ namespace Lib_K_Relay.Networking.Packets.Server
             }
             else
             {
-                NumShots = 1;
-                AngleInc = 0.0F;
+                NumShots = -1;
+                AngleInc = 0.0f;
             }
         }
 
@@ -41,11 +41,11 @@ namespace Lib_K_Relay.Networking.Packets.Server
             w.Write(BulletId);
             w.Write(OwnerId);
             w.Write(BulletType);
-            Location.Write(w);
+            Position.Write(w);
             w.Write(Angle);
             w.Write(Damage);
 
-            if (NumShots != 1)
+            if (NumShots != -1)
             {
                 w.Write(NumShots);
                 w.Write(AngleInc);
