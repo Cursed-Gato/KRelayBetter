@@ -6,9 +6,10 @@ namespace Lib_K_Relay.Networking.Packets.Server
     public class TradeStartPacket : Packet
     {
         public Item[] MyItems;
-        public int PartnerObjectId;
-        public Item[] YourItems;
         public string YourName;
+        public Item[] YourItems;
+        public int YourObjectId;
+        public byte something;
 
         public override PacketType Type => PacketType.TRADESTART;
 
@@ -21,19 +22,21 @@ namespace Lib_K_Relay.Networking.Packets.Server
             YourItems = new Item[r.ReadInt16()];
             for (var i = 0; i < YourItems.Length; i++) YourItems[i] = (Item)new Item().Read(r);
 
-            r.ReadInt32();
+            YourObjectId = r.ReadInt32();
+            something = r.ReadByte();
         }
 
         public override void Write(PacketWriter w)
         {
-            w.Write((ushort)MyItems.Length);
+            w.Write((short)MyItems.Length);
             foreach (var i in MyItems) i.Write(w);
 
             w.Write(YourName);
-            w.Write((ushort)YourItems.Length);
+            w.Write((short)YourItems.Length);
             foreach (var i in YourItems) i.Write(w);
 
-            w.Write(PartnerObjectId);
+            w.Write(YourObjectId);
+            w.Write(something);
         }
     }
 }

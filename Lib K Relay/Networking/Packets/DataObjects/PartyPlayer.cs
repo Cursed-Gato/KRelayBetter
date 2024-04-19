@@ -4,16 +4,16 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
     public class PartyPlayer : IDataObject
     {
-        public ushort UNKNOWN2;
-        public string UNKNOWN3;
-        public ushort UNKNOWN4;
+        public ushort Id;
+        public string Name;
+        public ushort ObjectId;
         public ushort UNKNOWN1;
 
         public IDataObject Read(PacketReader r)
         {
-            UNKNOWN2 = r.ReadUInt16();
-            UNKNOWN3 = r.ReadString();
-            UNKNOWN4 = r.ReadUInt16();
+            Id = r.ReadUInt16();
+            Name = r.ReadString();
+            ObjectId = r.ReadUInt16();
             UNKNOWN1 = r.ReadUInt16();
 
             return this;
@@ -21,9 +21,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 
         public void Write(PacketWriter w)
         {
-            w.Write(UNKNOWN2);
-            w.Write(UNKNOWN3);
-            w.Write(UNKNOWN4);
+            w.Write(Id);
+            w.Write(Name);
+            w.Write(ObjectId);
             w.Write(UNKNOWN1);
         }
 
@@ -31,17 +31,17 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
         {
             return new PartyPlayer
             {
-                UNKNOWN1 = UNKNOWN1,
-                UNKNOWN2 = UNKNOWN2,
-                UNKNOWN3 = UNKNOWN3,
-                UNKNOWN4 = UNKNOWN4
+                Id = Id,
+                Name = Name,
+                ObjectId = ObjectId,
+                UNKNOWN1 = UNKNOWN1
             };
         }
 
         public override string ToString()
         {
-            return "{ ItemId=" + UNKNOWN1 + ", SlotType=" + UNKNOWN2 + ", Tradable=" + UNKNOWN3 + ", Included=" +
-                   UNKNOWN4 + " }";
+            return "{ Id=" + Id + ", Name=" + Name + ", ObjectId=" + ObjectId + ", UNKNOWN1=" +
+                   UNKNOWN1 + " }";
         }
     }
 }
