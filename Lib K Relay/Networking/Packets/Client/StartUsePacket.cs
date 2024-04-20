@@ -2,26 +2,26 @@
 
 namespace Lib_K_Relay.Networking.Packets.Client
 {
-    public class CreepMoveMessagePacket : Packet
+    public class StartUsePacket : Packet
     {
-        public bool Hold;
-        public Location Position = new Location();
         public int Time;
+        public Location StartPos;
+        public Location EndPos;
 
-        public override PacketType Type => PacketType.CREEPMOVE;
+        public override PacketType Type => PacketType.STARTUSE;
 
         public override void Read(PacketReader r)
         {
             Time = r.ReadInt32();
-            Position.Read(r);
-            Hold = r.ReadBoolean();
+            StartPos = (Location)new Location().Read(r);
+            EndPos = (Location)new Location().Read(r);
         }
 
         public override void Write(PacketWriter w)
         {
             w.Write(Time);
-            Position.Write(w);
-            w.Write(Hold);
+            StartPos.Write(w);
+            EndPos.Write(w);
         }
     }
 }

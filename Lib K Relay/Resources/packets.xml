@@ -168,8 +168,8 @@
   <Packet id="UPGRADEENCHANTMENTRESULT" type="188"/>
   <Packet id="REROLLENCHANTMENTS" type="189"/>
   <Packet id="REROLLENCHANTMENTSRESULT" type="190"/>
-  <Packet id="UNKNOWN191" type="191"/>
-  <Packet id="UNKNOWN192" type="192"/>
+  <Packet id="RESETENCHANTMENTSREROLLCOUNT" type="191"/>
+  <Packet id="RESETENCHANTMENTREROLLCOUNTRESULT" type="192"/>
   <Packet id="PURCHASEPETSHADER" type="193"/>
   <Packet id="PETSHADERPURCHASERESULT" type="194"/>
   <Packet id="DISMANTLEITEMMESSAGE" type="195"/>

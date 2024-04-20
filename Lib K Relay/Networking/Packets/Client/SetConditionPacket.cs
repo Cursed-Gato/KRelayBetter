@@ -3,13 +3,13 @@
     public class SetConditionPacket : Packet
     {
         public float ConditionDuration;
-        public byte ConditionEffect;
+        public uint ConditionEffect;
 
         public override PacketType Type => PacketType.SETCONDITION;
 
         public override void Read(PacketReader r)
         {
-            ConditionEffect = r.ReadByte();
+            ConditionEffect = r.ReadUInt32();
             ConditionDuration = r.ReadSingle();
         }
 

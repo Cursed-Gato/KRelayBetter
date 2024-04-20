@@ -2,18 +2,18 @@
 {
     public class QueueCancelPacket : Packet
     {
-        public int ObjectId;
+        public string Quid;
 
         public override PacketType Type => PacketType.QUEUECANCEL;
 
         public override void Read(PacketReader r)
         {
-            ObjectId = r.ReadInt32();
+            Quid = r.ReadString();
         }
 
         public override void Write(PacketWriter w)
         {
-            w.Write(ObjectId);
+            w.Write(Quid);
         }
     }
 }
