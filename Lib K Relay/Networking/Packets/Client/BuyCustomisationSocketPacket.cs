@@ -1,6 +1,4 @@
-﻿
-using Lib_K_Relay.Networking.Packets.DataObjects;
-using MetroFramework.Drawing.Html;
+﻿using Lib_K_Relay.Networking.Packets.DataObjects;
 
 namespace Lib_K_Relay.Networking.Packets.Client
 {

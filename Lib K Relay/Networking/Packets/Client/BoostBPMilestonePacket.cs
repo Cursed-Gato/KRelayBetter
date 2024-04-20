@@ -5,7 +5,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
     {
         public byte MilestoneCount;
 
-        public override PacketType Type => PacketType.BUY;
+        public override PacketType Type => PacketType.BOOSTBPMILESTONE;
 
         public override void Read(PacketReader r)
         {
