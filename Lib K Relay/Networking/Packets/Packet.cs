@@ -95,7 +95,27 @@ namespace Lib_K_Relay.Networking.Packets
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(Type.ToString() + "(" + Id.ToString() + ") Packet Instance");
             foreach (var fieldInfo in fields)
-                stringBuilder.Append("      " + fieldInfo.Name + " => " + fieldInfo.GetValue(this)?.ToString());
+            {
+                if (fieldInfo.FieldType.IsArray)
+                {
+                    var array = (Array)fieldInfo.GetValue(this);
+                    stringBuilder.Append("\n    " + fieldInfo.Name + " => [");
+                    foreach (var item in array)
+                    {
+                        stringBuilder.Append("\n        " + item.ToString());
+                    }
+                    if(array.Length > 0)
+                        stringBuilder.Append("\n    ]");
+                    else
+                    {
+                        stringBuilder.Append(" ]");
+                    }
+                }
+                else
+                {
+                    stringBuilder.Append("\n    " + fieldInfo.Name + " => " + fieldInfo.GetValue(this)?.ToString());
+                }
+            }
             return stringBuilder.ToString();
         }
 

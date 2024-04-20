@@ -4,10 +4,10 @@ namespace Lib_K_Relay.Networking.Packets.Client
 {
     public class CreepMovePacket : Packet
     {
-        public int CreepId; // 0x20
-        public int Time; // 0x24
-        Location Position; // 0x2C
-        public bool Teleported; // 0x30
+        public int CreepId;
+        public int Time;
+        public Location Position;
+        public bool Teleported;
 
         public override PacketType Type => PacketType.CREEPMOVE;
 

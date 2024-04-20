@@ -67,7 +67,7 @@ namespace Lib_K_Relay.Utilities
         {
             if (sender.Length > 13) sender = sender.Substring(0, 13);
             sender += "]";
-            Console.WriteLine(@"[{0,-15} {1}", sender, message);
+            Console.WriteLine("[{0,-15} {1}", sender, message);
         }
 
         /// <summary>

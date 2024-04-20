@@ -50,6 +50,10 @@ namespace K_Relay.Util
 
         public override void Write(char value)
         {
+            if(value == '\n') {
+                base.Write('\r');
+                _buffer.Append('\r');
+            }
             base.Write(value);
             _buffer.Append(value);
 
