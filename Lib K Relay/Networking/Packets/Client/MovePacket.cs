@@ -29,8 +29,6 @@ namespace Lib_K_Relay.Networking.Packets.Client
             w.Write((short)Records.Length);
             foreach (var l in Records)
                 l.Write(w);
-
-            PluginUtils.Log("Nig", ToString());
         }
     }
 }
