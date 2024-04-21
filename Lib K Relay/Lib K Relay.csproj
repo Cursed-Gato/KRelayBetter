@@ -131,6 +131,8 @@
     <Compile Include="Networking\Packets\DataObjects\Stat\StatData.cs" />
     <Compile Include="Networking\Packets\DataObjects\Stat\StatsType.cs" />
     <Compile Include="Networking\Packets\DataObjects\Stat\Status.cs" />
+    <Compile Include="Networking\Packets\Server\ChestRewardResultPacket.cs" />
+    <Compile Include="Networking\Packets\Server\ClaimRewardsInfoPrompt.cs" />
     <Compile Include="Networking\Packets\Server\IncomingPartyInvitationPacket.cs" />
     <Compile Include="Networking\Packets\Server\IncomingPartyMemberInfoPacket.cs" />
     <Compile Include="Networking\Packets\Server\MapInfoPacket.cs" />

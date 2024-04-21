@@ -47,7 +47,7 @@ namespace K_Relay
                         }
                         catch (Exception e)
                         {
-                            MetroMessageBox.Show(this, "Failed to load plugin " + pPath + "!\n" + e.Message, "K Relay",
+                            PluginUtils.Log("Nig", "Failed to load plugin " + pPath + "!\n" + e.Message, "K Relay",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
             }

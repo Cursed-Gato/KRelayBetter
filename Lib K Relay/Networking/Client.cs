@@ -31,6 +31,7 @@ namespace Lib_K_Relay.Networking
         private NetworkStream _serverStream;
         public int LastUpdate = 0;
         public int PreviousTime = 0;
+        public int relativeTime = 0;
 
         public Client(Proxy proxy, TcpClient client)
         {
@@ -44,7 +45,7 @@ namespace Lib_K_Relay.Networking
         /// <summary>
         ///     Time since the client's connection began.
         /// </summary>
-        public int Time => PreviousTime + (Environment.TickCount - LastUpdate);
+        public int Time => Environment.TickCount + relativeTime;
 
         /// <summary>
         ///     Object ID of the client's Player.
@@ -137,8 +138,6 @@ namespace Lib_K_Relay.Networking
             {
                 var success = PluginUtils.ProtectedInvoke(() =>
                 {
-                    if(packet.Id > 140) 
-                        PluginUtils.Log("Packet", packet.Type.ToString());
                     var ms = new MemoryStream();
                     using (var w = new PacketWriter(ms))
                     {

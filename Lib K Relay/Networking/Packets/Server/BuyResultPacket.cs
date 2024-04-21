@@ -3,19 +3,6 @@
     public class BuyResultPacket : Packet
     {
         public string Message;
-        /*
-        UnknownError = -1
-        Success = 0
-        InvalidCharacter = 1
-        ItemNotFound = 2
-        NotEnoughGold = 3
-        InventoryFull = 4
-        TooLowRank = 5
-        NotEnoughFame = 6
-        PetFeedSuccess = 7
-        TooManyResets = 10
-        */
-
         public int Result;
 
         public override PacketType Type => PacketType.BUYRESULT;

@@ -6,6 +6,18 @@
         public int ObjectType;
         public int SlotId;
 
+        public SlotObject()
+        {
+
+        }
+
+        public SlotObject(int objectId, int objectType, int slotId)
+        {
+            ObjectId = objectId;
+            ObjectType = objectType;
+            SlotId = slotId;
+        }
+
         public IDataObject Read(PacketReader r)
         {
             ObjectId = r.ReadInt32();
@@ -24,12 +36,7 @@
 
         public object Clone()
         {
-            return new SlotObject
-            {
-                ObjectId = ObjectId,
-                ObjectType = ObjectType,
-                SlotId = SlotId
-            };
+            return new SlotObject(ObjectId, ObjectType, SlotId);
         }
 
         public override string ToString()

@@ -31,6 +31,11 @@ namespace Lib_K_Relay.Networking
 
         private void OnPlayerShoot(Client client, PlayerShootPacket packet)
         {
+            if(client.relativeTime == 0)
+            {
+                client.relativeTime = packet.Time - Environment.TickCount;
+                client.SendToClient(PluginUtils.CreateOryxNotification("Client", "Synced Time"));
+            }
             client.PlayerData.Pos = new Location
             {
                 X = packet.ProjectilePosition.X - 0.3f * (float)Math.Cos(packet.Angle),
