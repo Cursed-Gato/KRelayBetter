@@ -2,8 +2,11 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Linq;
 using Lib_K_Relay;
 using Lib_K_Relay.GameData;
 using Lib_K_Relay.Interface;
@@ -20,8 +23,9 @@ namespace QoLTools
     {
         private List<byte> SkipPacketLog;
         private List<byte> PacketsToTrack;
-        private Dictionary<int, Packet> TrackedPackets;
-        private int PacketIt = 0;
+        private Dictionary<int, Packet> CreatedPackets;
+        private Dictionary<int, List<Packet>> PacketsToSendOn;
+        private int PacketCreaterIt = 0;
         private bool LogPackets = false;
         private bool LogToClient = false;
         private bool ChestMode = false;
@@ -29,7 +33,7 @@ namespace QoLTools
 
         public string GetAuthor()
         {
-            return "Smol";
+            return "smol";
         }
 
         public string GetName()
@@ -47,17 +51,19 @@ namespace QoLTools
             return new[]
             {
                 "/logpackets limited:remove:add:stop:start:reset:toclient",
-                "/track remove:add:reset:send",
+                "/track remove:add:reset",
                 "/chestmode",
                 "/useall {itemid}",
-                "/inv"
+                "/inv",
+                "/packet create:reset:send:name:id:sendm"
             };
         }
 
         public void Initialize(Proxy proxy)
         {
             SkipPacketLog = new List<byte>();
-            TrackedPackets = new Dictionary<int, Packet>();
+            CreatedPackets = new Dictionary<int, Packet>();
+            PacketsToSendOn = new Dictionary<int, List<Packet>>();
             PacketsToTrack = new List<byte>();
 
             proxy.ServerPacketRecieved += OnServerPacket;
@@ -71,6 +77,7 @@ namespace QoLTools
             proxy.HookPacket<ClaimRewardsInfoPrompt>(onCliamRewardsInfoItem);
             proxy.HookPacket<ClaimChestRewardPacket>(onCliamRewards);
             proxy.HookPacket<ChestRewardResultPacket>(onChestResultRewards);
+            proxy.HookCommand("packet", onPacketCommand);
         }
 
         UseItemPacket LastUseItem = null;
@@ -113,6 +120,246 @@ namespace QoLTools
 
             client.SendToClient(PluginUtils.CreateOryxNotification("QOL", "Inventory => " + sb.ToString()));
 
+        }
+
+        public void onPacketCommand(Client client, string cmd, string[] args)
+        {
+            if (args[0] == "create")
+            {
+                PacketType packetType = GetPacketType(args[1]);
+                var workingPacket = Packet.Create(packetType);
+                var fields = workingPacket.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                //Check if there are enough feilds given to create the packet
+                if (fields.Length != args.Length+1)
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", (args.Length-2).ToString() + " Given, but " + (fields.Length-3).ToString() + " needed!"));
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", workingPacket.ToStructure()));
+                    return;
+                }
+
+                //need to parse the fields in question
+                int fieldsToParse = fields.Length-3;
+                for(int i = 0; i < fieldsToParse; i++)
+                {
+                    var fieldType = fields[i].FieldType;
+                    var fieldValue = args[i + 2];
+                    object parsedValue = ParseFieldValue(fieldType, fieldValue);
+
+                    fields[i].SetValue(workingPacket, parsedValue);
+                }
+
+                CreatedPackets.Add(PacketCreaterIt, workingPacket);
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer",PacketCreaterIt.ToString() + " -> " + workingPacket.ToString()));
+                PacketCreaterIt++;
+            }
+
+            if (args[0] == "reset")
+            {
+                PacketCreaterIt = 0;
+                CreatedPackets.Clear();
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Reset Packets"));
+            }
+
+            if (args[0] == "sendon")
+            {
+                PacketType packetType = GetPacketType(args[1]);
+                var packetToSendOn = Packet.Create(packetType);
+
+                Packet packetToSend;
+                if (!CreatedPackets.TryGetValue(args[2].ParseInt(), out packetToSend))
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Packet Iterator is not Valid!"));
+                    return;
+                }
+
+                if (PacketsToSendOn.ContainsKey(packetToSendOn.Id))
+                {
+                    PacketsToSendOn[packetToSendOn.Id].Add(packetToSend);
+                }
+                else
+                {
+                    PacketsToSendOn[packetToSendOn.Id] = new List<Packet> { packetToSend };
+                }
+
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Registered packet send on " + packetType.ToString()));
+            }
+
+            if (args[0] == "send")
+            {
+                if(args.Length < 3)
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Invalid Usage, /packet send client:server {PacketIt}"));
+                    return;
+                }
+
+                Packet packetToSend;
+                if (!CreatedPackets.TryGetValue(args[2].ParseInt(), out packetToSend))
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Packet Iterator is not Valid!"));
+                    return;
+                }
+
+                if (args[1].ToLower() == "client")
+                {
+                    client.SendToClient(packetToSend);
+                }
+                else if (args[1].ToLower() == "server")
+                {
+                    client.SendToServer(packetToSend);
+                }
+                else
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Invalid Usage, needs to be either server or client!"));
+                    return;
+                }
+
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Send Packet!"));
+            }
+
+            if (args[0] == "sendm")
+            {
+                if (args.Length < 4)
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Invalid Usage, /packet send client:server {TimesToSend} {PacketIt}"));
+                    return;
+                }
+
+                Packet packetToSend;
+                if (!CreatedPackets.TryGetValue(args[3].ParseInt(), out packetToSend))
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Packet Iterator is not Valid, usage /packet send client:server {TimesToSend} {PacketIt}!"));
+                    return;
+                }
+
+                if (args[1].ToLower() == "client")
+                {
+                    for(int i = 0; i < args[2].ParseInt(); i++)
+                        client.SendToClient(packetToSend);
+                }
+                else if (args[1].ToLower() == "server")
+                {
+                    for (int i = 0; i < args[2].ParseInt(); i++)
+                        client.SendToServer(packetToSend);
+                }
+                else
+                {
+                    client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Invalid Usage, needs to be either server or client!"));
+                    return;
+                }
+
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", "Sent " + args[2] + " Packets!"));
+            }
+
+            if (args[0] == "name")
+            {
+                string keyword = args[1].ToLower();
+
+                var matchingPackets = GameData.Packets.Map
+                    .Where(packetTypeEntry => packetTypeEntry.Value.Name.ToLower().Contains(keyword))
+                    .Select(packetTypeEntry => $"{packetTypeEntry.Value.Name} -> {packetTypeEntry.Key}");
+
+                string result = string.Join("\n", matchingPackets);
+
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", result));
+            }
+
+            if (args[0] == "id")
+            {
+                var packet = Packet.Create(GameData.Packets.ById((byte)args[1].ParseInt()).PacketType);
+                client.SendToClient(PluginUtils.CreateOryxNotification("Packeteer", args[1] + " -> " + packet.ToStructure()));
+            }
+        }
+
+        private object ParseFieldValue(Type fieldType, string fieldValue)
+        {
+            // Implement parsing logic based on field type
+            if (fieldType.IsArray)
+            {
+                Type elementType = fieldType.GetElementType();
+                string[] values = fieldValue.Split(',');
+
+                Array array = Array.CreateInstance(elementType, values.Length);
+
+                for (int i = 0; i < values.Length; i++)
+                {
+                    array.SetValue(ParseFieldValue(elementType, values[i]), i);
+                }
+
+                return array;
+            }
+
+            if (fieldType == typeof(int))
+            {
+                int parsedInt;
+                if (int.TryParse(fieldValue, out parsedInt))
+                {
+                    return parsedInt;
+                }
+            }
+            else if(fieldType == typeof(byte))
+            {
+                byte parsedByte;
+                if (byte.TryParse(fieldValue, out parsedByte))
+                {
+                    return parsedByte;
+                }
+            }
+            else if (fieldType == typeof(float))
+            {
+                float parsedFloat;
+                if (float.TryParse(fieldValue, out parsedFloat))
+                {
+                    return parsedFloat;
+                }
+            }
+            else if (fieldType == typeof(bool))
+            {
+                bool parsedBool;
+                if (bool.TryParse(fieldValue, out parsedBool))
+                {
+                    return parsedBool;
+                }
+            }
+            else if (fieldType == typeof(short))
+            {
+                short parsedShort;
+                if (short.TryParse(fieldValue, out parsedShort))
+                {
+                    return parsedShort;
+                }
+            }
+            else if (fieldType == typeof(sbyte))
+            {
+                sbyte parsedSByte;
+                if (sbyte.TryParse(fieldValue, out parsedSByte))
+                {
+                    return parsedSByte;
+                }
+            }
+            else if (fieldType == typeof(string))
+            {
+                return fieldValue;
+            }
+            else if (fieldType == typeof(uint))
+            {
+                uint parsedUInt;
+                if (uint.TryParse(fieldValue, out parsedUInt))
+                {
+                    return parsedUInt;
+                }
+            }
+            else if (fieldType == typeof(ushort))
+            {
+                ushort parsedUShort;
+                if (ushort.TryParse(fieldValue, out parsedUShort))
+                {
+                    return parsedUShort;
+                }
+            }
+
+
+            return null;
         }
 
         public void onUseAllCommand(Client client, string cmd, string[] args)
@@ -213,10 +460,9 @@ namespace QoLTools
             if (args[0].ToLower() == "reset")
             {
                 PacketsToTrack.Clear();
-                PacketIt = 0;
-                TrackedPackets.Clear();
             }
-            if(args[0].ToLower() == "send")
+
+            /*if (args[0].ToLower() == "send")
             {
                 if (args.Length < 2)
                 {
@@ -264,7 +510,7 @@ namespace QoLTools
                     client.SendToServer(packetToSend);
                     client.SendToClient(PluginUtils.CreateOryxNotification("Packet Tracker", "Sent Packet! -> " + packetToSend.ToString()));
                 }
-            }
+            }*/
         }
 
         public void OnLoggerCommamd(Client client, string cmd, string[] args)
@@ -345,12 +591,22 @@ namespace QoLTools
 
         public void TrackPacket(Client client, Packet packet)
         {
+            if (PacketsToSendOn.ContainsKey(packet.Id))
+            {
+                var packetsToSend = PacketsToSendOn[packet.Id];
+
+                foreach(var packetToSend in packetsToSend)
+                {
+                    client.SendToServer(packetToSend);
+                }
+            }
+
             if (!PacketsToTrack.Contains(packet.Id))
                 return;
 
-            TrackedPackets.Add(PacketIt, packet);
-            client.SendToClient(PluginUtils.CreateOryxNotification("Packet Tracker", PacketIt.ToString() + " -> " + packet.Type.ToString()));
-            PacketIt++;
+            CreatedPackets.Add(PacketCreaterIt, packet);
+            client.SendToClient(PluginUtils.CreateOryxNotification("Packet Tracker", PacketCreaterIt.ToString() + " -> " + packet.Type.ToString()));
+            PacketCreaterIt++;
 
         }
 
@@ -361,8 +617,22 @@ namespace QoLTools
 
         public void OnClientPacket(Client client, Packet packet)
         {
-            LogPacket(client,packet);
+            LogPacket(client, packet);
             TrackPacket(client, packet);
+        }
+
+        public PacketType GetPacketType(string packetName)
+        {
+            //This can be a name or an either way returns the id
+            byte idToReturn = 255;
+            if(!byte.TryParse(packetName, out idToReturn))
+            {
+                return GameData.Packets.ByName(packetName.ToUpper()).PacketType;
+            }
+            else
+            {
+                return GameData.Packets.ById(idToReturn).PacketType;
+            }
         }
     }
 }

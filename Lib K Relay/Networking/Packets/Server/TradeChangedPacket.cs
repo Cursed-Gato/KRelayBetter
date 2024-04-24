@@ -14,7 +14,7 @@
 
         public override void Write(PacketWriter w)
         {
-            w.Write((ushort)Offers.Length);
+            w.Write((short)Offers.Length);
             foreach (var i in Offers) w.Write(i);
         }
     }

@@ -18,10 +18,10 @@
 
         public override void Write(PacketWriter w)
         {
-            w.Write((ushort)MyOffers.Length);
+            w.Write((short)MyOffers.Length);
             foreach (var i in MyOffers) w.Write(i);
 
-            w.Write((ushort)YourOffers.Length);
+            w.Write((short)YourOffers.Length);
             foreach (var i in YourOffers) w.Write(i);
         }
     }
