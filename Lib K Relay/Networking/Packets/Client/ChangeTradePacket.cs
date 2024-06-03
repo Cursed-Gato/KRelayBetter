@@ -2,19 +2,19 @@
 {
     public class ChangeTradePacket : Packet
     {
-        public bool[] Offers;
+        public byte[] Offers;
 
         public override PacketType Type => PacketType.CHANGETRADE;
 
         public override void Read(PacketReader r)
         {
-            Offers = new bool[r.ReadInt16()];
-            for (var i = 0; i < Offers.Length; i++) Offers[i] = r.ReadBoolean();
+            Offers = new byte[r.ReadInt16()];
+            for (var i = 0; i < Offers.Length; i++) Offers[i] = r.ReadByte();
         }
 
         public override void Write(PacketWriter w)
         {
-            w.Write((ushort)Offers.Length);
+            w.Write((short)Offers.Length);
             foreach (var i in Offers) w.Write(i);
         }
     }

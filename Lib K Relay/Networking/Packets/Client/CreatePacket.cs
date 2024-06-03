@@ -2,24 +2,27 @@
 {
     public class CreatePacket : Packet
     {
-        public ushort ClassType;
-        public ushort SkinType;
-        public bool Unknown;
+        public short ClassType;
+        public short SkinType;
+        public bool FirstSession;
+        public bool SeasonalChar;
 
         public override PacketType Type => PacketType.CREATE;
 
         public override void Read(PacketReader r)
         {
-            ClassType = r.ReadUInt16();
-            SkinType = r.ReadUInt16();
-            Unknown = r.ReadBoolean();
+            ClassType = r.ReadInt16();
+            SkinType = r.ReadInt16();
+            FirstSession = r.ReadBoolean();
+            SeasonalChar = r.ReadBoolean();
         }
 
         public override void Write(PacketWriter w)
         {
             w.Write(ClassType);
             w.Write(SkinType);
-            w.Write(Unknown);
+            w.Write(FirstSession);
+            w.Write(SeasonalChar);
         }
     }
 }

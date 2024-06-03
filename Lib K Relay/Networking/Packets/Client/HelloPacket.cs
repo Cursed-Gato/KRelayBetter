@@ -10,7 +10,7 @@
         public string GameNet;
         public string PlayPlatform;
         public string PlatformToken;
-        public string ClientToken;
+        public string UserToken;
         public string ClientIdentification;
 
         public override PacketType Type => PacketType.HELLO;
@@ -25,7 +25,7 @@
             GameNet = r.ReadString();
             PlayPlatform = r.ReadString();
             PlatformToken = r.ReadString();
-            ClientToken = r.ReadString();
+            UserToken = r.ReadString();
             ClientIdentification = r.ReadString();
         }
 
@@ -40,7 +40,7 @@
             w.Write(GameNet);
             w.Write(PlayPlatform);
             w.Write(PlatformToken);
-            w.Write(ClientToken);
+            w.Write(UserToken);
             w.Write(ClientIdentification);
         }
     }

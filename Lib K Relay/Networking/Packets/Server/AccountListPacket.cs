@@ -12,7 +12,8 @@
         {
             AccountListId = r.ReadInt32();
             AccountIds = new string[r.ReadUInt16()];
-            for (var i = 0; i < AccountIds.Length; i++) AccountIds[i] = r.ReadString();
+            for (var i = 0; i < AccountIds.Length; i++)
+                AccountIds[i] = r.ReadString();
 
             LockAction = r.ReadInt32();
         }
