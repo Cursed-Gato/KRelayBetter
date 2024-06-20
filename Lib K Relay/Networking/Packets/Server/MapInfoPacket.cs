@@ -19,8 +19,8 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public short MaxPlayers;
         public int GameOpenedTime;
         public string ServerVersion;
+        public short ViewDistance = 0;
         public int BGColor = -1;
-        public short unknown = 0;
         public string Modifier = "";
         public int MaxRealmScore = -1;
         public int CurrentRealmScore = 0;
@@ -43,7 +43,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             MaxPlayers = r.ReadInt16();
             GameOpenedTime = r.ReadInt32();
             ServerVersion = r.ReadString();
-            unknown = r.ReadInt16();
+            ViewDistance = r.ReadInt16();
 
             if (r.BaseStream.Position != r.BaseStream.Length)
             {
@@ -78,7 +78,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
             w.Write(MaxPlayers);
             w.Write(GameOpenedTime);
             w.Write(ServerVersion);
-            w.Write(unknown);
+            w.Write(ViewDistance);
 
             if(BGColor != -1)
             {

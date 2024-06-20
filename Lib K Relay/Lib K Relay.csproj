@@ -118,6 +118,7 @@
     <Compile Include="Networking\Packets\DataObjects\Data\CompressedInt.cs" />
     <Compile Include="Networking\Packets\DataObjects\Data\Entity.cs" />
     <Compile Include="Networking\Packets\DataObjects\Data\PlayerData.cs" />
+    <Compile Include="Networking\Packets\DataObjects\FameData.cs" />
     <Compile Include="Networking\Packets\DataObjects\IDataObject.cs" />
     <Compile Include="Networking\Packets\DataObjects\Item.cs" />
     <Compile Include="Networking\Packets\DataObjects\ItemBuyData.cs" />
